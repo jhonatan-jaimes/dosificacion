@@ -1,0 +1,18 @@
+# Configuración de PyCharm
+.idea/
+*.iml
+
+# Archivos de workspace (entorno de desarrollo)
+*.ipr
+*.iws
+
+# Entornos virtuales
+venv/
+.venv/
+env/
+ENV/
+
+# Logs y datos de desarrollo
+*.log
+*.sqlite
+*.db
