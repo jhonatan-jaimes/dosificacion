@@ -2,7 +2,7 @@ from typing import Dict
 
 
 class Areas:
-    def __init__(self, area_one=0.0, area_all=0.0):
+    def __init__(self, area_one: float = 0.0, area_all: float = 0.0):
         self.area_one = area_one
         self.area_all = area_all
 
@@ -15,7 +15,7 @@ class Areas:
 
 
 class Medidas2D:
-    def __init__(self, largo=0.0, ancho=0.0):
+    def __init__(self, largo: float = 0.0, ancho: float = 0.0):
         self.largo = largo
         self.ancho = ancho
 
@@ -28,7 +28,7 @@ class Medidas2D:
 
 
 class Medidas3D(Medidas2D):
-    def __init__(self, largo=0.0, ancho=0.0, alto=0.0):
+    def __init__(self, largo: float = 0.0, ancho: float = 0.0, alto: float = 0.0):
         super().__init__(largo, ancho)
         self.alto = alto
 
@@ -42,14 +42,14 @@ class Medidas3D(Medidas2D):
 
 
 class ElementoAbs:
-    def __init__(self, name="", units=0, areas=Areas()):
+    def __init__(self, name: str = "", units: int = 0, areas: Areas = None):
         self.name = name
         self.units = units
         self.areas = areas
 
 
 class Elemento2D(ElementoAbs):
-    def __init__(self, name="", units=0, areas=Areas(), medidas_2d=Medidas2D()):
+    def __init__(self, name: str = "", units: int = 0, areas: Areas = None, medidas_2d: Medidas2D = None):
         super().__init__(name, units, areas)
         self.medidas_2d = medidas_2d
 
@@ -64,7 +64,7 @@ class Elemento2D(ElementoAbs):
 
 
 class Elemento3D(ElementoAbs):
-    def __init__(self, name="", units=0, areas=Areas(), medidas_3d=Medidas3D()):
+    def __init__(self, name: str = "", units: int = 0, areas: Areas = None, medidas_3d: Medidas3D = None):
         super().__init__(name, units, areas)
         self.medidas_3d = medidas_3d
 
@@ -78,14 +78,14 @@ class Elemento3D(ElementoAbs):
 
 
 class Mortero:
-    def __init__(self, cemento: float, arena: float, agua: float):
+    def __init__(self, cemento: float = 0.0, arena: float = 0.0, agua: float = 0.0):
         self.cemento = cemento
         self.arena = arena
         self.agua = agua
 
 
 class Concreto(Mortero):
-    def __init__(self, cemento: float, arena: float, grava: float, agua: float):
+    def __init__(self, cemento: float = 0.0, arena: float = 0.0, grava: float = 0.0, agua: float = 0.0):
         super().__init__(cemento, arena, agua)
         self.grava = grava
 
@@ -99,7 +99,7 @@ class Concreto(Mortero):
 
 
 class Pisos:
-    def __init__(self, baldosas: float, area_baldosas: float, name_baldosa: str):
+    def __init__(self, baldosas: float = 0.0, area_baldosas: float = 0.0, name_baldosa: str = ""):
         self.baldosas = baldosas
         self.area_baldosas = area_baldosas
         self.name_baldosa = name_baldosa
@@ -107,4 +107,4 @@ class Pisos:
 
 class Elemento:
     def __init__(self):
-        self.pisos = Pisos(0, 0, "")
+        self.pisos = Pisos()

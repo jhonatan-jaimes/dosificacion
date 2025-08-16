@@ -20,7 +20,7 @@ class DosificacionConcreto:
             ("148", "99", "1420", "10"): {"cemento": "160", "arena": "0.55", "grava": "1.03", "agua": "125"}
         }
 
-        self.elemento_concreto = Concreto(0, 0, 0, 0)
+        self.elemento_concreto = Concreto()
 
     def dosificacion(self, area: float, dosificacion: str):
         objeto_dosificacion = {}
@@ -45,7 +45,7 @@ class DosificacionMortero:
             ("15", "200", "2850", "19"): {"cemento": "300", "arena": "1.18", "agua": "180"},
             ("16", "160", "2275", "16"): {"cemento": "275", "arena": "1.20", "agua": "180"},
         }
-        self.elemento_mortero = Mortero(0, 0, 0)
+        self.elemento_mortero = Mortero()
 
     def dosificacion(self, area: str, dosificacion: str):
         objeto_dosificacion = {}
@@ -69,7 +69,7 @@ class BaldosasPisos:
             "70x70": .4900, "75x75": .5625, "80x80": .6400, "85x85": .7225, "90x90": .8100, "95x95": .9025
         }
 
-        self.baldosas_piso = Pisos(0, 0, "")
+        self.baldosas_piso = Pisos()
 
     def baldosas(self, area: str, name_baldosa: str):
         area_tableta = self.tabletas[name_baldosa]
