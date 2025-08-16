@@ -2,7 +2,7 @@ from typing import Dict
 
 
 class Areas:
-    def __init__(self, area_one: float, area_all: float):
+    def __init__(self, area_one=0.0, area_all=0.0):
         self.area_one = area_one
         self.area_all = area_all
 
@@ -15,7 +15,7 @@ class Areas:
 
 
 class Medidas2D:
-    def __init__(self, largo: float, ancho: float):
+    def __init__(self, largo=0.0, ancho=0.0):
         self.largo = largo
         self.ancho = ancho
 
@@ -28,7 +28,7 @@ class Medidas2D:
 
 
 class Medidas3D(Medidas2D):
-    def __init__(self, largo: float, ancho: float, alto: float):
+    def __init__(self, largo=0.0, ancho=0.0, alto=0.0):
         super().__init__(largo, ancho)
         self.alto = alto
 
@@ -42,14 +42,14 @@ class Medidas3D(Medidas2D):
 
 
 class ElementoAbs:
-    def __init__(self, name: str, units: int, areas: Areas):
+    def __init__(self, name="", units=0, areas=Areas()):
         self.name = name
         self.units = units
         self.areas = areas
 
 
 class Elemento2D(ElementoAbs):
-    def __init__(self, name: str, units: int, areas: Areas, medidas_2d: Medidas2D):
+    def __init__(self, name="", units=0, areas=Areas(), medidas_2d=Medidas2D()):
         super().__init__(name, units, areas)
         self.medidas_2d = medidas_2d
 
@@ -64,7 +64,7 @@ class Elemento2D(ElementoAbs):
 
 
 class Elemento3D(ElementoAbs):
-    def __init__(self, name: str, units: int, areas: Areas, medidas_3d: Medidas3D):
+    def __init__(self, name="", units=0, areas=Areas(), medidas_3d=Medidas3D()):
         super().__init__(name, units, areas)
         self.medidas_3d = medidas_3d
 
