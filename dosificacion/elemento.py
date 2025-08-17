@@ -98,7 +98,7 @@ class Concreto(Mortero):
         }
 
 
-class Pisos:
+class Baldosas:
     def __init__(self, baldosas: float = 0.0, area_baldosas: float = 0.0, name_baldosa: str = ""):
         self.baldosas = baldosas
         self.area_baldosas = area_baldosas
@@ -107,4 +107,4 @@ class Pisos:
 
 class Elemento:
     def __init__(self):
-        self.pisos = Pisos()
+        self.pisos = Baldosas()

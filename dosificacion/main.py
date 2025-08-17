@@ -14,7 +14,7 @@ def run():
     areas = Areas(area_one, area_all)
     elemento_3d = Elemento3D(nombre, cantidad, areas, medidas)
 
-
+    print(concreto.json())
 
     print(elemento_3d.json())
 

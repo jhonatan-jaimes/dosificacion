@@ -1,1 +1,6 @@
-#### PROYECTO PYTHON PARA ARQUITECTOS E INGERNIEROS CIVILES
+# DOSIFICACION OBRA DE CONSTRUCCION
+
+```python
+def main():
+    print("Hola, mundo")
+```
