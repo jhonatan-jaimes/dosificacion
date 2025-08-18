@@ -88,3 +88,6 @@ class Prefabricados:
 
     def baldosas_asimetricas(self, medida_baldosa: str, area: float):
         area_tableta = self.asimetricas_biblioteca[medida_baldosa]
+
+    def ladrillos_muro(self, metros_muro: float, altura_muro: float, espesor_brechas: float, posicion: int):
+        return 0
