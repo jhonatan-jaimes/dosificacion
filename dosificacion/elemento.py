@@ -42,10 +42,11 @@ class Medidas3D(Medidas2D):
 
 
 class ElementoAbs:
-    def __init__(self, name: str = "", units: int = 0, areas: Areas = None):
+    def __init__(self, name: str = "", units: int = 0, areas: Areas = None, error: str = ""):
         self.name = name
         self.units = units
         self.areas = areas
+        self.error = error
 
 
 class Elemento2D(ElementoAbs):
@@ -77,25 +78,37 @@ class Elemento3D(ElementoAbs):
         }
 
 
-class Mortero:
-    def __init__(self, cemento: float = 0.0, arena: float = 0.0, agua: float = 0.0):
+class Material:
+    def __init__(self, error: str = ""):
+        self.error = error
+
+
+class Mortero(Material):
+    def __init__(self, cemento: float = 0.0, arena: float = 0.0, agua: float = 0.0, error: str = ""):
+        super().__init__(error)
         self.cemento = cemento
         self.arena = arena
         self.agua = agua
 
 
 class Concreto(Mortero):
-    def __init__(self, cemento: float = 0.0, arena: float = 0.0, grava: float = 0.0, agua: float = 0.0):
-        super().__init__(cemento, arena, agua)
+    def __init__(self, cemento: float = 0.0, arena: float = 0.0,
+                 grava: float = 0.0, agua: float = 0.0, error: str = ""):
+        super().__init__(cemento, arena, agua, error)
         self.grava = grava
 
-    def json(self) -> Dict[str, float]:
-        return {
-            "cemento": self.cemento,
-            "arena": self.arena,
-            "grava": self.grava,
-            "agua": self.agua
-        }
+    def json(self):
+        if self.error is "":
+            return {
+                "cemento": self.cemento,
+                "arena": self.arena,
+                "grava": self.grava,
+                "agua": self.agua
+            }
+        else:
+            return {
+                "error": self.error
+            }
 
 
 class Baldosas:

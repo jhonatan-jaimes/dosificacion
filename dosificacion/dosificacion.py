@@ -34,19 +34,22 @@ class Dosificacion:
 
     def concreto(self, area: float, dosificacion: str):
         if area is None:
-            return "El area es no puede ser nula"
+            self.elemento_concreto.error = "El area es no puede ser nula"
+            return self.elemento_concreto
         elif area <= 0:
-            return f"El area no puede ser negativo (-1) ni cero (0), {area}"
+            self.elemento_concreto.error = f"El area no puede ser negativo (-1) ni cero (0), {area}"
+            return self.elemento_concreto
 
         objeto_dosificacion = None
 
-        for clave, valores in self.dosificacion_concreto.items():
-            if dosificacion in clave:  # <-- aquí se verifica si la clave contiene el valor
-                objeto_dosificacion = valores
+        for clave in self.dosificacion_concreto:
+            if dosificacion in clave:
+                objeto_dosificacion = self.dosificacion_concreto[clave]
                 break
 
         if objeto_dosificacion is None:
-            return f"dosificacion no encontrada, {dosificacion}"
+            self.elemento_concreto.error = f"dosificacion no encontrada, {dosificacion}"
+            return self.elemento_concreto
 
         self.elemento_concreto.cemento = float(round(dec(area) * dec(objeto_dosificacion["cemento"]), 2))
         self.elemento_concreto.arena = float(round(dec(area) * dec(objeto_dosificacion["arena"]), 2))

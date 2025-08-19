@@ -10,7 +10,7 @@ def run():
     medidas = Medidas3D(10.2, 11.5, 5.4)
     area_one = medidas.largo * medidas.ancho * medidas.alto
     area_all = area_one * cantidad
-    concreto = dosifi.concreto(area_all, "121")
+    concreto = dosifi.concreto(area_all, "123")
     areas = Areas(area_one, area_all)
     elemento_3d = Elemento3D(nombre, cantidad, areas, medidas)
 
