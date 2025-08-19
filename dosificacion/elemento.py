@@ -1,4 +1,6 @@
-from typing import Dict
+class Error:
+    def __init__(self):
+        self.error = None
 
 
 class Areas:
@@ -41,64 +43,35 @@ class Medidas3D(Medidas2D):
         return medidas_3d
 
 
-class ElementoAbs:
-    def __init__(self, name: str = "", units: int = 0, areas: Areas = None, error: str = ""):
-        self.name = name
-        self.units = units
-        self.areas = areas
-        self.error = error
-
-
-class Elemento2D(ElementoAbs):
-    def __init__(self, name: str = "", units: int = 0, areas: Areas = None, medidas_2d: Medidas2D = None):
-        super().__init__(name, units, areas)
-        self.medidas_2d = medidas_2d
-
-    def json(self):
-        elemento_2d = {
-            "nombre": self.name,
-            "cantidad": self.units,
-            "medidas": self.medidas_2d.json(),
-            "areas": self.areas.json()
-        }
-        return elemento_2d
-
-
-class Elemento3D(ElementoAbs):
-    def __init__(self, name: str = "", units: int = 0, areas: Areas = None, medidas_3d: Medidas3D = None):
-        super().__init__(name, units, areas)
-        self.medidas_3d = medidas_3d
-
-    def json(self):
-        return {
-            "nombre": self.name,
-            "cantidad": self.units,
-            "medidas": self.medidas_3d.json(),
-            "areas": self.areas.json()
-        }
-
-
-class Material:
-    def __init__(self, error: str = ""):
-        self.error = error
-
-
-class Mortero(Material):
-    def __init__(self, cemento: float = 0.0, arena: float = 0.0, agua: float = 0.0, error: str = ""):
-        super().__init__(error)
+class Mortero(Error):
+    def __init__(self, cemento: float = 0.0, arena: float = 0.0,
+                 agua: float = 0.0):
+        super().__init__()
         self.cemento = cemento
         self.arena = arena
         self.agua = agua
 
+    def json(self):
+        if self.error is None:
+            return {
+                "cemento": self.cemento,
+                "arena": self.arena,
+                "agua": self.agua
+            }
+        else:
+            return {
+                "error": self.error
+            }
+
 
 class Concreto(Mortero):
-    def __init__(self, cemento: float = 0.0, arena: float = 0.0,
-                 grava: float = 0.0, agua: float = 0.0, error: str = ""):
-        super().__init__(cemento, arena, agua, error)
+    def __init__(self, cemento: float = 0.0, arena: float = 0.0, grava: float = 0.0,
+                 agua: float = 0.0):
+        super().__init__(cemento, arena, agua)
         self.grava = grava
 
     def json(self):
-        if self.error is "":
+        if self.error is None:
             return {
                 "cemento": self.cemento,
                 "arena": self.arena,
@@ -118,6 +91,44 @@ class Baldosas:
         self.name_baldosa = name_baldosa
 
 
-class Elemento:
-    def __init__(self):
-        self.pisos = Baldosas()
+class Elemento(Error):
+    def __init__(self, name: str = "", units: int = 0, areas: Areas = None):
+        super().__init__()
+        self.name = name
+        self.units = units
+        self.areas = areas
+
+
+class Elemento2D(Elemento):
+    def __init__(self, name: str = "", units: int = 0,
+                 areas: Areas = None, medidas_2d: Medidas2D = None):
+        super().__init__(name, units, areas)
+        self.medidas_2d = medidas_2d
+
+    def json(self):
+        elemento_2d = {
+            "nombre": self.name,
+            "cantidad": self.units,
+            "medidas": self.medidas_2d.json(),
+            "areas": self.areas.json()
+        }
+        return elemento_2d
+
+
+class Elemento3D(Elemento):
+    def __init__(self, name: str = "", units: int = 0,
+                 areas: Areas = None, medidas_3d: Medidas3D = None,
+                 concreto: Concreto = None, mortero: Mortero = None):
+        super().__init__(name, units, areas)
+        self.concreto = concreto
+        self.mortero = mortero
+        self.medidas_3d = medidas_3d
+
+    def json(self):
+        return {
+            "nombre": self.name,
+            "cantidad": self.units,
+            "medidas": self.medidas_3d.json(),
+            "areas": self.areas.json(),
+            "concreto": self.concreto.json()
+        }

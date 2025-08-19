@@ -59,11 +59,22 @@ class Dosificacion:
         return self.elemento_concreto
 
     def mortero(self, area: float, dosificacion: str):
-        objeto_dosificacion = {}
+        if area is None:
+            self.elemento_mortero.error = "El area es no puede ser nula"
+            return self.elemento_mortero
+        elif area <= 0:
+            self.elemento_mortero.error = f"El area no puede ser negativo (-1) ni cero (0), {area}"
+            return self.elemento_mortero
+
+        objeto_dosificacion = None
 
         for i in self.dosificacion_mortero:
             if dosificacion in i:
                 objeto_dosificacion = self.dosificacion_mortero[i]
+
+        if objeto_dosificacion is None:
+            self.elemento_mortero.error = f"dosificacion no encontrada, {dosificacion}"
+            return self.elemento_mortero
 
         self.elemento_mortero.cemento = float(round(dec(area) * dec(objeto_dosificacion["cemento"]), 2))
         self.elemento_mortero.arena = float(round(dec(area) * dec(objeto_dosificacion["arena"]), 2))
