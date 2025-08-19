@@ -33,10 +33,20 @@ class Dosificacion:
         self.elemento_concreto = Concreto()
 
     def concreto(self, area: float, dosificacion: str):
-        objeto_dosificacion = {}
-        for i in self.dosificacion_concreto:
-            if dosificacion in i:
-                objeto_dosificacion = self.dosificacion_concreto[i]
+        if area is None:
+            return "El area es no puede ser nula"
+        elif area <= 0:
+            return f"El area no puede ser negativo (-1) ni cero (0), {area}"
+
+        objeto_dosificacion = None
+
+        for clave, valores in self.dosificacion_concreto.items():
+            if dosificacion in clave:  # <-- aquí se verifica si la clave contiene el valor
+                objeto_dosificacion = valores
+                break
+
+        if objeto_dosificacion is None:
+            return f"dosificacion no encontrada, {dosificacion}"
 
         self.elemento_concreto.cemento = float(round(dec(area) * dec(objeto_dosificacion["cemento"]), 2))
         self.elemento_concreto.arena = float(round(dec(area) * dec(objeto_dosificacion["arena"]), 2))

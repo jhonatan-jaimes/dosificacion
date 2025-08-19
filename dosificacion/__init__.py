@@ -1,4 +1,4 @@
-from .dosificacion import DosificacionConcreto
+from .dosificacion import Dosificacion
 from .elemento import *
 
-__all__ = ["DosificacionConcreto", "Elemento3D", "Medidas3D", "Areas"]
+__all__ = ["Dosificacion", "Elemento3D", "Medidas3D", "Areas"]
