@@ -44,8 +44,7 @@ class Medidas3D(Medidas2D):
 
 
 class Mortero(Error):
-    def __init__(self, cemento: float = 0.0, arena: float = 0.0,
-                 agua: float = 0.0):
+    def __init__(self, cemento: float = 0.0, arena: float = 0.0, agua: float = 0.0):
         super().__init__()
         self.cemento = cemento
         self.arena = arena
@@ -106,13 +105,12 @@ class Elemento2D(Elemento):
         self.medidas_2d = medidas_2d
 
     def json(self):
-        elemento_2d = {
+        return {
             "nombre": self.name,
             "cantidad": self.units,
             "medidas": self.medidas_2d.json(),
             "areas": self.areas.json()
         }
-        return elemento_2d
 
 
 class Elemento3D(Elemento):
