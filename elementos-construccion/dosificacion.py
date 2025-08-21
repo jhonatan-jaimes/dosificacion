@@ -32,7 +32,7 @@ class Dosificacion:
 
         self.elemento_concreto = Concreto()
 
-    def concreto(self, area: float, dosificacion: str):
+    def concreto(self, area: float, dosificacion_tipo: str):
         if area is None:
             self.elemento_concreto.error = "El area es no puede ser nula"
             return self.elemento_concreto
@@ -43,12 +43,12 @@ class Dosificacion:
         objeto_dosificacion = None
 
         for clave in self.dosificacion_concreto:
-            if dosificacion in clave:
+            if dosificacion_tipo in clave:
                 objeto_dosificacion = self.dosificacion_concreto[clave]
                 break
 
         if objeto_dosificacion is None:
-            self.elemento_concreto.error = f"dosificacion no encontrada, {dosificacion}"
+            self.elemento_concreto.error = f"dosificacion no encontrada, {dosificacion_tipo}"
             return self.elemento_concreto
 
         self.elemento_concreto.cemento = float(round(dec(area) * dec(objeto_dosificacion["cemento"]), 2))
@@ -58,7 +58,7 @@ class Dosificacion:
 
         return self.elemento_concreto
 
-    def mortero(self, area: float, dosificacion: str):
+    def mortero(self, area: float, dosificacion_tipo: str):
         if area is None:
             self.elemento_mortero.error = "El area es no puede ser nula"
             return self.elemento_mortero
@@ -69,11 +69,11 @@ class Dosificacion:
         objeto_dosificacion = None
 
         for i in self.dosificacion_mortero:
-            if dosificacion in i:
+            if dosificacion_tipo in i:
                 objeto_dosificacion = self.dosificacion_mortero[i]
 
         if objeto_dosificacion is None:
-            self.elemento_mortero.error = f"dosificacion no encontrada, {dosificacion}"
+            self.elemento_mortero.error = f"dosificacion no encontrada, {dosificacion_tipo}"
             return self.elemento_mortero
 
         self.elemento_mortero.cemento = float(round(dec(area) * dec(objeto_dosificacion["cemento"]), 2))
@@ -83,16 +83,25 @@ class Dosificacion:
         return self.elemento_mortero
 
 
-class Prefabricados:
+class Prefabricado:
     def __init__(self):
-        self.simetricas_biblioteca = {
-            "10": .0100, "15": .0225, "20": .0400, "25": .0625, "30": .0900, "35": .1225,
-            "40": .1600, "45": .2025, "50": .2500, "55": .3025, "60": .3600, "65": .4225,
-            "70": .4900, "75": .5625, "80": .6400, "85": .7225, "90": .8100, "95": .9025
+        self.ceramica_simetrica = {
+            ("10x10", "10"): .0100, ("15x15", "15"): .0225, ("20x20", "20"): .0400, ("25x25", "25"): .0625,
+            ("30x30", "30"): .0900, ("35x35", "35"): .1225, ("40x40", "40"): .1600, ("45x45", "45"): .2025,
+            ("50x50", "50"): .2500, ("55x55", "55"): .3025, ("60x60", "60"): .3600, ("65x65", "65"): .4225,
+            ("70x70", "70"): .4900, ("75x75", "75"): .5625, ("80x80", "80"): .6400, ("85x85", "85"): .7225,
+            ("90x90", "90"): .8100, ("95x95", "95"): .9025, ("100x100", "100"): 1.0
         }
 
-        self.asimetricas_biblioteca = {
-
+        self.ceramica_asimetrica = {
+            ("10x15", "1015"): .0150, ("10x20", "1020"): .0200, ("10x25", "1025"): .0250,
+            ("10x30", "1030"): .0300, ("10x35", "1035"): .0350, ("10x40", "1040"): .0400,
+            ("20x25", "2025"): .0500, ("20x30", "2030"): .0600, ("20x35", "2035"): .0700,
+            ("20x40", "2040"): .0800, ("20x45", "2045"): .0900, ("20x50", "2050"): .1000,
+            ("30x35", "3035"): .1050, ("30x40", "3040"): .1200, ("30x45", "3045"): .1350,
+            ("30x50", "3050"): .1500, ("30x55", "3055"): .1650, ("30x60", "3060"): .1800,
+            ("40x45", "4045"): .1800, ("40x50", "4050"): .2000, ("40x55", "4055"): .2200,
+            ("40x60", "4060"): .2400, ("40x65", "4065"): .2600, ("40x70", "4070"): .2800
         }
 
         self.ladrillo_general = {
@@ -102,7 +111,7 @@ class Prefabricados:
         self.baldosas_piso = Baldosas()
 
     def baldosas_simetricas(self, area: float, medida_baldosa: str):
-        area_tableta = self.simetricas_biblioteca[medida_baldosa]
+        area_tableta = self.ceramica_simetrica[medida_baldosa]
 
         self.baldosas_piso.name_baldosa = medida_baldosa
         self.baldosas_piso.area_baldosas = area_tableta
@@ -111,7 +120,11 @@ class Prefabricados:
         return self.baldosas_piso
 
     def baldosas_asimetricas(self, medida_baldosa: str, area: float):
-        area_tableta = self.asimetricas_biblioteca[medida_baldosa]
+        area_tableta = self.ceramica_asimetrica[medida_baldosa]
 
     def ladrillos_muro(self, metros_muro: float, altura_muro: float, espesor_brechas: float, posicion: int):
         return 0
+
+
+dosificacion = Dosificacion()
+prefabricado = Prefabricado()
