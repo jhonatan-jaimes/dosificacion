@@ -13,6 +13,10 @@ def run():
     concreto = dosificacion.concreto(areas.area_all, "122")
     elemento_3d = Elemento3D(nombre, cantidad, areas, medidas, concreto)
 
+    medida_dos = Medidas3D(8888.8, .01, .01)
+    area = medida_dos.area()
+
+    print(area)
     print(elemento_3d.json())
 
 

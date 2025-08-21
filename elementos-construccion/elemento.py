@@ -1,3 +1,5 @@
+from decimal import Decimal as dec
+
 class Error:
     def __init__(self):
         self.error = None
@@ -21,6 +23,9 @@ class Medidas2D:
         self.largo = largo
         self.ancho = ancho
 
+    def area(self):
+        return float(round(dec(self.largo) * dec(self.ancho), 2))
+
     def json(self):
         medidas_2d = {
             "largo": self.largo,
@@ -33,6 +38,9 @@ class Medidas3D(Medidas2D):
     def __init__(self, largo: float = 0.0, ancho: float = 0.0, alto: float = 0.0):
         super().__init__(largo, ancho)
         self.alto = alto
+
+    def area(self):
+        return float(round(dec(super().area()) * dec(self.alto), 2))
 
     def json(self):
         medidas_3d = {
@@ -84,10 +92,10 @@ class Concreto(Mortero):
 
 
 class Baldosas:
-    def __init__(self, baldosas: float = 0.0, area_baldosas: float = 0.0, name_baldosa: str = ""):
+    def __init__(self, area_piso: float = 0.0, baldosas: float = 0.0, area_baldosas: float = 0.0):
+        self.area_piso = area_piso
         self.baldosas = baldosas
         self.area_baldosas = area_baldosas
-        self.name_baldosa = name_baldosa
 
 
 class Elemento(Error):

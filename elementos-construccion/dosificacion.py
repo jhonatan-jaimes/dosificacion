@@ -1,6 +1,6 @@
 from decimal import Decimal as dec
 
-from elemento import Mortero, Concreto, Baldosas
+from elemento import Mortero, Concreto, Baldosas, Medidas3D, Medidas2D
 
 
 class Dosificacion:
@@ -83,6 +83,10 @@ class Dosificacion:
         return self.elemento_mortero
 
 
+def area_2d(medidas_2d: Medidas2D):
+    return float(round(dec(medidas_2d.largo) * dec(medidas_2d.ancho), 2))
+
+
 class Prefabricado:
     def __init__(self):
         self.ceramica_simetrica = {
@@ -101,23 +105,28 @@ class Prefabricado:
             ("30x35", "3035"): .1050, ("30x40", "3040"): .1200, ("30x45", "3045"): .1350,
             ("30x50", "3050"): .1500, ("30x55", "3055"): .1650, ("30x60", "3060"): .1800,
             ("40x45", "4045"): .1800, ("40x50", "4050"): .2000, ("40x55", "4055"): .2200,
-            ("40x60", "4060"): .2400, ("40x65", "4065"): .2600, ("40x70", "4070"): .2800
+            ("40x60", "4060"): .2400, ("40x65", "4065"): .2600, ("40x70", "4070"): .2800,
+            ("50x55", "5055"): .2750, ("50x60", "5060"): .3000, ("50x65", "5065"): .3250,
+            ("50x70", "5070"): .3500, ("50x75", "5075"): .3750, ("50x80", "5080"): .4000,
+            ("60x65", "6065"): .3900, ("60x70", "6070"): .4200, ("60x75", "6075"): .4500,
+            ("60x80", "6080"): .4800, ("60x85", "6085"): .5100, ("60x90", "6090"): .5400,
+            ("70x75", "7075"): .5250, ("70x80", "7080"): .5600, ("70x85", "7085"): .5950,
+            ("70x90", "7090"): .6300, ("70x95", "7095"): .6650, ("70x100", "70100"): .70,
+            ("80x85", "8085"): .6800, ("80x90", "8090"): .7200, ("80x95", "8095"): .7600,
+            ("80x100", "80100"): .80, ("90x95", "9095"): .8550, ("90x100", "90100"): .90
         }
 
         self.ladrillo_general = {
 
         }
 
-        self.baldosas_piso = Baldosas()
+        self.baldosas = Baldosas()
 
-    def baldosas_simetricas(self, area: float, medida_baldosa: str):
-        area_tableta = self.ceramica_simetrica[medida_baldosa]
-
-        self.baldosas_piso.name_baldosa = medida_baldosa
-        self.baldosas_piso.area_baldosas = area_tableta
-        self.baldosas_piso.baldosas = float(round(dec(area) / dec(area_tableta), 2))
-
-        return self.baldosas_piso
+    def baldosas(self, medidas_piso: Medidas2D, medida_baldosa: Medidas2D):
+        self.baldosas.area_piso = area_2d(medidas_piso)
+        self.baldosas.area_baldosas = area_2d(medida_baldosa)
+        self.baldosas.baldosas = float(round(dec(self.baldosas.area_piso) * dec(self.baldosas.area_baldosas), 2))
+        return self.baldosas
 
     def baldosas_asimetricas(self, medida_baldosa: str, area: float):
         area_tableta = self.ceramica_asimetrica[medida_baldosa]
