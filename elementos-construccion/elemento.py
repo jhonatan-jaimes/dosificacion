@@ -1,5 +1,6 @@
 from decimal import Decimal as dec
 
+
 class Error:
     def __init__(self):
         self.error = None
@@ -138,3 +139,7 @@ class Elemento3D(Elemento):
             "areas": self.areas.json(),
             "concreto": self.concreto.json()
         }
+
+
+# Instanciacion de todas las clases de la clase elemento
+concreto = Concreto()
